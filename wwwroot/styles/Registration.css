@@ -1,0 +1,91 @@
+/* Общий стиль для страницы */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Контейнер для окна регистрации */
+  .register-container {
+    background-color: rgba(128, 128, 128, 0.8);
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 400px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Контент внутри окна регистрации */
+  .register-content {
+    text-align: center;
+  }
+  
+  /* Форма */
+  .register-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  /* Поля ввода */
+  .register-content input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Кнопка */
+  .register-content button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #9638d0;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .register-content button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Подсказки и обязательные поля */
+  .required {
+    color: red;
+    font-weight: bold;
+  }
+  
+  /* Поля с ошибкой */
+  input:invalid {
+    border-color: red;
+  }
+  
+  input.error {
+    border-color: red;
+    outline: none;
+  }
+
+  /* Подсказки */
+.hint {
+    font-size: 12px;
+    color: red;
+    display: none; /* По умолчанию скрыто */
+    margin-top: 5px;
+  }
+  
+  /* Поля с ошибкой */
+  input.error {
+    border-color: red;
+  }
+  
+  

@@ -1,0 +1,132 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="Views\Home\.DS_Store" />
+    <None Include="Views\Home\.git\config" />
+    <None Include="Views\Home\.git\description" />
+    <None Include="Views\Home\.git\FETCH_HEAD" />
+    <None Include="Views\Home\.git\HEAD" />
+    <None Include="Views\Home\.git\hooks\applypatch-msg.sample" />
+    <None Include="Views\Home\.git\hooks\commit-msg.sample" />
+    <None Include="Views\Home\.git\hooks\fsmonitor-watchman.sample" />
+    <None Include="Views\Home\.git\hooks\post-update.sample" />
+    <None Include="Views\Home\.git\hooks\pre-applypatch.sample" />
+    <None Include="Views\Home\.git\hooks\pre-commit.sample" />
+    <None Include="Views\Home\.git\hooks\pre-merge-commit.sample" />
+    <None Include="Views\Home\.git\hooks\pre-push.sample" />
+    <None Include="Views\Home\.git\hooks\pre-rebase.sample" />
+    <None Include="Views\Home\.git\hooks\pre-receive.sample" />
+    <None Include="Views\Home\.git\hooks\prepare-commit-msg.sample" />
+    <None Include="Views\Home\.git\hooks\push-to-checkout.sample" />
+    <None Include="Views\Home\.git\hooks\sendemail-validate.sample" />
+    <None Include="Views\Home\.git\hooks\update.sample" />
+    <None Include="Views\Home\.git\index" />
+    <None Include="Views\Home\.git\info\exclude" />
+    <None Include="Views\Home\.git\logs\HEAD" />
+    <None Include="Views\Home\.git\logs\refs\heads\main" />
+    <None Include="Views\Home\.git\logs\refs\remotes\origin\HEAD" />
+    <None Include="Views\Home\.git\logs\refs\remotes\origin\main" />
+    <None Include="Views\Home\.git\objects\04\c7c5569743d20e3c9cb10b53aced99aa2c31ea" />
+    <None Include="Views\Home\.git\objects\05\76acf273a161cdd522b00ce1516050269032fa" />
+    <None Include="Views\Home\.git\objects\0b\90243f160d20472eddc604f1873443c741d020" />
+    <None Include="Views\Home\.git\objects\0b\a0210fcb2c353af53b428f09365a07b9743c14" />
+    <None Include="Views\Home\.git\objects\0b\fca3033e553b3e155465c4eeee44d7623568c2" />
+    <None Include="Views\Home\.git\objects\1a\fbfcd24b0015029259d6a525a0a4814f2ecbaf" />
+    <None Include="Views\Home\.git\objects\1b\57f1e28ba8e04655a813020824de10538f67f9" />
+    <None Include="Views\Home\.git\objects\22\0fdfd34fd1b6060b67b350438d767b1b297277" />
+    <None Include="Views\Home\.git\objects\26\639548dd59aa1e3bab34358ac5c7f2896eedd7" />
+    <None Include="Views\Home\.git\objects\2a\a89efdab43b0559ad1d37d9a927753a00af60f" />
+    <None Include="Views\Home\.git\objects\2b\f5648195f4490175f755e6db434feb7f04a7cd" />
+    <None Include="Views\Home\.git\objects\3d\78a0c986a01d1ea85168250823334b7198b441" />
+    <None Include="Views\Home\.git\objects\4c\9aaf66024d6720e38e900342c3018f65d7c728" />
+    <None Include="Views\Home\.git\objects\5a\3fabaa8d76e6d800dd308b89abc7e2f4233ad1" />
+    <None Include="Views\Home\.git\objects\5f\f9200b55dfaebdd6157a24b76e474ebcda6fbf" />
+    <None Include="Views\Home\.git\objects\61\cf4a97e002ac44fdf1a69575afc843f655ed07" />
+    <None Include="Views\Home\.git\objects\66\2a2dc644360999497c484b7bc50aa55e9110f8" />
+    <None Include="Views\Home\.git\objects\6e\cd40fd708a9aa7070dc7a83e63b704bbe2e49d" />
+    <None Include="Views\Home\.git\objects\79\301f01514ad608ed932c4b02470c5365aa45e5" />
+    <None Include="Views\Home\.git\objects\7f\6b5a13f9f1953bf0d61b40f5f128bc702b6913" />
+    <None Include="Views\Home\.git\objects\8a\4458c5254fb6af9bbc40645b2bf2f7aac2a011" />
+    <None Include="Views\Home\.git\objects\8b\95e4c51d640c726934b0de199d011359b60224" />
+    <None Include="Views\Home\.git\objects\9d\a7441930cc957aa6fb04b0da5169a9747780d4" />
+    <None Include="Views\Home\.git\objects\9f\3660aef013d95c2b61696c49342360bbdc3a3a" />
+    <None Include="Views\Home\.git\objects\a9\887641702bff0fcc892ae3b81e6ea0a951e9e2" />
+    <None Include="Views\Home\.git\objects\b9\5b952901dc4929b7e603185049c7fc5632900e" />
+    <None Include="Views\Home\.git\objects\b9\c463eeb67c5b5de4ee1846a5a6f8445e884001" />
+    <None Include="Views\Home\.git\objects\bb\0285906d4a363b27ee2528b1b94e2e94d7751a" />
+    <None Include="Views\Home\.git\objects\de\1e0d4ed80d29cfec34e1111718fbbf85b9a39a" />
+    <None Include="Views\Home\.git\objects\e4\4d319698bb1411baa56d9a59f62a9b945746ec" />
+    <None Include="Views\Home\.git\objects\e9\88a8bebf76d1e4c84634c9978d3a687c089cf9" />
+    <None Include="Views\Home\.git\objects\e9\90cc60e1266fbc58c254b3c48e89cb8b357c24" />
+    <None Include="Views\Home\.git\objects\ea\fb735d7e2369eb550f6da81df32fdaa4ec9826" />
+    <None Include="Views\Home\.git\objects\ef\af07b20a9563d11bedf5459378dc2325277323" />
+    <None Include="Views\Home\.git\objects\pack\pack-1dd7a2cd60e282f3ba1a5b790c82977bf602da2d.idx" />
+    <None Include="Views\Home\.git\objects\pack\pack-1dd7a2cd60e282f3ba1a5b790c82977bf602da2d.pack" />
+    <None Include="Views\Home\.git\objects\pack\pack-1dd7a2cd60e282f3ba1a5b790c82977bf602da2d.rev" />
+    <None Include="Views\Home\.git\ORIG_HEAD" />
+    <None Include="Views\Home\.git\packed-refs" />
+    <None Include="Views\Home\.git\refs\heads\main" />
+    <None Include="Views\Home\.git\refs\remotes\origin\HEAD" />
+    <None Include="Views\Home\.git\refs\remotes\origin\main" />
+    <None Include="wwwroot\content\.DS_Store" />
+    <None Include="wwwroot\content\Background\.DS_Store" />
+    <None Include="wwwroot\content\images\.DS_Store" />
+    <None Include="wwwroot\garbage\.DS_Store" />
+    <None Include="wwwroot\garbage\IG4.90Gn0RkmPYmrphxsdl.1.jpg" />
+    <None Include="wwwroot\garbage\IG4.90Gn0RkmPYmrphxsdl.1 — копия.jpg" />
+    <None Include="wwwroot\garbage\OIG1.19tKEgKcN_t5m8qvTIXR.jpg" />
+    <None Include="wwwroot\garbage\OIG1.VX3ryAq2ZmAAOeggS8qc.jpg" />
+    <None Include="wwwroot\garbage\OIG1.VX3ryAq2ZmAAOeggS8qc — копия.jpg" />
+    <None Include="wwwroot\garbage\OIG4.90Gn0RkmPYmrphxsdl.1.jpg" />
+    <None Include="wwwroot\pages\AskQuestion.html" />
+    <None Include="wwwroot\pages\CreateArticle.html" />
+    <None Include="wwwroot\pages\Help.html" />
+    <None Include="wwwroot\pages\InterestingInformation.html" />
+    <None Include="wwwroot\pages\Login.html" />
+    <None Include="wwwroot\pages\PreviewPage.html" />
+    <None Include="wwwroot\pages\Question.html" />
+    <None Include="wwwroot\pages\Registration.html" />
+    <None Include="wwwroot\styles\.DS_Store" />
+    <None Include="wwwroot\content\Background\3.jpg" />
+    <None Include="wwwroot\content\Background\4.png" />
+    <None Include="wwwroot\content\Background\background1.jpg" />
+    <None Include="wwwroot\content\Background\Background2.jpeg" />
+    <None Include="wwwroot\content\Background\Phone.jpg" />
+    <None Include="wwwroot\content\images\login.png" />
+    <None Include="wwwroot\content\images\logo.png" />
+    <None Include="wwwroot\content\images\logo2.png" />
+    <None Include="wwwroot\content\images\registration.png" />
+    <None Include="wwwroot\index.html" />
+    <None Include="wwwroot\scripts\APILogin.js" />
+    <None Include="wwwroot\scripts\DynamicElements.js" />
+    <None Include="wwwroot\scripts\IsActiveButton.js" />
+    <None Include="wwwroot\scripts\preview.js" />
+    <None Include="wwwroot\scripts\APIRegistrationValidator.js" />
+    <None Include="wwwroot\styles\AskQuestion.css" />
+    <None Include="wwwroot\styles\Background.css" />
+    <None Include="wwwroot\styles\Canvas.css" />
+    <None Include="wwwroot\styles\CreateArticle.css" />
+    <None Include="wwwroot\styles\Help.css" />
+    <None Include="wwwroot\styles\Login.css" />
+    <None Include="wwwroot\styles\NavMenu.css" />
+    <None Include="wwwroot\styles\Normalize.css" />
+    <None Include="wwwroot\styles\PreviewPage.css" />
+    <None Include="wwwroot\styles\Registration.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Home\.git\objects\info\" />
+    <Folder Include="Views\Home\.git\refs\tags\" />
+  </ItemGroup>
+
+</Project>

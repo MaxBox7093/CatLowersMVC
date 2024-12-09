@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Предпросмотр статьи</title>
+  <link rel="stylesheet" href="../styles/PreviewPage.css">
+  <link rel="stylesheet" href="../styles/Background.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1 id="articleTitle">Заголовок статьи</h1>
+      <div class="article-meta">
+        <div class="tags" id="articleTags">
+          <span class="tag">Кошки</span>
+          <span class="tag">Питомцы</span>
+        </div>
+        <div class="category" id="articleCategory">
+          <span>Категория: Домашние животные</span>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="content-preview">
+        <p id="articleContent">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.
+        </p>
+      </section>
+
+      <!-- Новый блок подтверждения -->
+  <section class="confirmation">
+    <label>
+      <input type="checkbox" id="confirmationCheckbox">
+      Я ознакомился(ась) со статьёй перед публикацией.
+    </label>
+    <button id="publishButton" disabled>Опубликовать</button>
+  </section>
+  
+    </main>
+    <footer>
+      <p>&copy; 2024 Форум любителей кошек</p>
+    </footer>
+  </div>
+
+  <script src="../scripts/IsActiveButton.js"></script>
+</body>
+</html>

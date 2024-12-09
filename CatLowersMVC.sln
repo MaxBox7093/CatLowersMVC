@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatLowersMVC", "CatLowersMVC.csproj", "{BA5EFCEC-ABDD-4C2C-BEB6-8CC6921AC29B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BA5EFCEC-ABDD-4C2C-BEB6-8CC6921AC29B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA5EFCEC-ABDD-4C2C-BEB6-8CC6921AC29B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA5EFCEC-ABDD-4C2C-BEB6-8CC6921AC29B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA5EFCEC-ABDD-4C2C-BEB6-8CC6921AC29B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Window</title>
+  <link rel="stylesheet" href="../styles/Background.css">
+  <link rel="stylesheet" href="../styles/Canvas.css">
+  <link rel="stylesheet" href="../styles/Registration.css">
+</head>
+<body>
+    <div class="register-container">
+        <div class="register-content">
+            <h2>Регистрация</h2>
+            <form id="registration-form">
+                <!-- Поле для ФИО -->
+                <div class="form-group">
+                    <label for="fullname">ФИО <span class="required">*</span></label>
+                    <input type="text" id="fullname" name="fullname" required>
+                </div>
+
+                <!-- Поле для логина -->
+                <div class="form-group">
+                    <label for="username">Логин <span class="required">*</span></label>
+                    <input type="text" id="username" name="username" required minlength="6">
+                    <div class="hint" id="username-hint"></div>
+                </div>
+
+                <!-- Поле для пароля -->
+                <div class="form-group">
+                    <label for="password">Пароль <span class="required">*</span></label>
+                    <input type="password" id="password" name="password" required minlength="8">
+                    <div class="hint" id="password-hint"></div>
+                </div>
+
+                <!-- Поле для подтверждения пароля -->
+                <div class="form-group">
+                    <label for="confirm-password">Пароль еще раз <span class="required">*</span></label>
+                    <input type="password" id="confirm-password" name="confirm-password" required>
+                    <div class="hint" id="confirm-password-hint"></div>
+                </div>
+
+                <!-- Поле для города -->
+                <div class="form-group">
+                    <label for="city">Город</label>
+                    <input type="text" id="city" name="city">
+                </div>
+
+                <!-- Поле для даты рождения -->
+                <div class="form-group">
+                    <label for="dob">Дата рождения</label>
+                    <input type="date" id="dob" name="dob">
+                </div>
+
+                <!-- Кнопка регистрации -->
+                <div class="form-group">
+                    <button type="submit">Registration</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="../scripts/APIRegistrationValidator.js"></script>
+</body>
+</html>

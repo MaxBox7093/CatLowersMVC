@@ -1,0 +1,64 @@
+/* Общий стиль для страницы */
+  body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Контейнер для окна входа */
+  .login-container {
+    background-color: rgba(128, 128, 128, 0.8); /* Серый полупрозрачный фон */
+    border: 2px solid #ccc; /* Рамка */
+    border-radius: 10px; /* Скругленные углы */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тень */
+    width: 400px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Контент внутри окна входа */
+  .login-content {
+    text-align: center;
+  }
+  
+  .login-content h2 {
+    margin-bottom: 20px;
+  }
+  
+  .login-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .login-content input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 150%;
+    max-width: 350px;
+    box-sizing: border-box;
+  }
+  
+  .login-content button {
+    width: 150%;
+    height: 150%;
+    padding: 10px;
+    border: none;
+    background-color: #9638d0;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .login-content button:hover {
+    background-color: #0056b3;
+  }

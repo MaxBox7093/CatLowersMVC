@@ -1,0 +1,70 @@
+/* Центрирование главного контейнера */
+.question-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 85vh; /* Высота экрана для вертикального центрирования */
+  width: 100%; /* Заполняет всю ширину */
+  background-color: rgba(128, 128, 128, 0.1); /* Фон для проверки */
+}
+
+/* Стиль блока контента */
+.question-content {
+  background-color: rgba(128, 128, 128, 0.9);
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 500px;
+  padding: 60px;
+  text-align: center;
+}
+
+.question-content h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+/* Форма для создания вопроса */
+.question-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.question-content input[type="text"],
+.question-content textarea {
+  padding: 10px;
+  border: 1px solid #fffcfc;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 450px;
+  box-sizing: border-box;
+}
+
+.question-content textarea {
+  resize: none; /* Запрет изменения размера */
+}
+
+.question-content input[type="file"] {
+  border: none;
+  padding: 5px;
+  font-size: 14px;
+}
+
+/* Кнопка */
+.question-content button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background-color: #9638d0;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.question-content button:hover {
+  background-color: #0056b3;
+}

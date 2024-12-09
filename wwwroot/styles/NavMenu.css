@@ -1,0 +1,41 @@
+.top-menu {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 10px 20px;
+	background-color: #9d9494;
+}
+	
+.logo img {
+	max-height: 62px;
+}
+	
+.main-menu {
+	display: flex;
+	flex: 2;
+	justify-content: center;
+}
+	
+.main-menu li {
+	margin: 0 5px;
+	padding: 10px 15px;
+	border-top-right-radius: 90px;
+  	border-bottom-left-radius: 80px;
+  	background-color: rgb(223, 204, 236);
+}
+	
+.main-menu a {
+	color: #333;
+	font-weight: bold;
+}
+
+.sign-in
+{
+	padding: 0px 15px 0px 0px;
+}
+
+.sign-in img
+{
+	padding: 0px 7px;
+	max-height: 60px;
+}

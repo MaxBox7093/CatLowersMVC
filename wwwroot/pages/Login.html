@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Window</title>
+  <link rel="stylesheet" href="../styles/Background.css">
+  <link rel="stylesheet" href="../styles/Canvas.css">
+  <link rel="stylesheet" href="../styles/Login.css">
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-content">
+      <h2>Вход</h2>
+      <form id="login-form">
+        <label for="username">Логин:</label>
+        <input type="text" id="username" name="username" required>
+        <label for="password">Пароль:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Login</button>
+      </form>
+      <p id="login-result"></p>
+    </div>
+  </div>
+  <script src="../scripts/APILogin.js"></script>
+</body>
+</html>
