@@ -11,10 +11,10 @@ namespace CatLowersMVC.Controllers
     {
         [HttpPost]
         [Route("create")]
-        public IActionResult CreateArticle(Article article, int userId)
+        public IActionResult CreateArticle(Article article)
         {
             var sqlArticle = new SQLArticle();
-            sqlArticle.AddArticle(article, userId);
+            sqlArticle.AddArticle(article);
 
             return Ok();
         }
@@ -29,7 +29,7 @@ namespace CatLowersMVC.Controllers
             return Ok(articles);  
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("{id}")]
         public IActionResult GetArticleById(int id)
         {

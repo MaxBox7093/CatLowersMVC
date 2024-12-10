@@ -6,7 +6,7 @@ namespace CatLowersMVC.SQL
 {
     public class SQLArticle
     {
-        public void AddArticle(Article article, int userId)
+        public void AddArticle(Article article)
         {
             using (var db = new ConnectionDB())
             {
@@ -21,7 +21,7 @@ namespace CatLowersMVC.SQL
                 using (var command = new SqlCommand(query, connection))
                 {
                     // Добавляем параметры
-                    command.Parameters.AddWithValue("@idUser", userId);
+                    command.Parameters.AddWithValue("@idUser", article.IdUser);
                     command.Parameters.AddWithValue("@idCategory", article.IdCategory);
                     command.Parameters.AddWithValue("@tags", article.Tags);
                     command.Parameters.AddWithValue("@title", article.Title);
@@ -49,6 +49,7 @@ namespace CatLowersMVC.SQL
                     {
                         var article = new Article
                         {
+                            Id = reader.GetInt32(0),
                             Title = reader.GetString(1),
                             Text = reader.GetString(2),
                             Tags = reader.GetString(3),
@@ -81,6 +82,7 @@ namespace CatLowersMVC.SQL
                         {
                             article = new Article
                             {
+                                Id = reader.GetInt32(0),
                                 Title = reader.GetString(1),
                                 Text = reader.GetString(2),
                                 Tags = reader.GetString(3),
