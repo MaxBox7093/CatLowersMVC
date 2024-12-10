@@ -32,16 +32,26 @@
 
     <div class="question-container">
         <div class="question-content">
-          <h2>Создать вопрос</h2>
-          <form>
-            <input type="text" name="topic" placeholder="Введите тему" required>
-            <input type="text" name="title" placeholder="Введите заголовок" required>
-            <textarea name="question" placeholder="Введите текст вопроса" rows="5" required></textarea>
-            <input type="file" name="attachment" accept="image/*">
-            <button type="submit">Опубликовать вопрос</button>
-          </form>
+            <h2>Создать вопрос</h2>
+            <form id="question-form">
+                <select name="idTopic" id="topic-select" required>
+                    <option value="" disabled selected>Выберите тему</option>
+                    <option value="1">Здоровье питомца</option>
+                    <option value="2">Выставки кошек</option>
+                    <option value="3">Питание и диета</option>
+                    <option value="4">Разведение кошек</option>
+                    <option value="5">Уход и grooming</option>
+                    <option value="6">Игры и игрушки для кошек</option>
+                    <option value="7">Другое</option>
+                </select>
+                <input type="text" name="title" placeholder="Введите заголовок" required>
+                <textarea name="text" placeholder="Введите текст вопроса" rows="5" required></textarea>
+                <input type="file" name="attachment" id="attachment" accept="image/*">
+                <button type="submit">Опубликовать вопрос</button>
+            </form>
         </div>
-      </div>
-      
+    </div>
+    <script src="../scripts/APIAskQuestion.js"></script>
+
 </body>
 </html>
