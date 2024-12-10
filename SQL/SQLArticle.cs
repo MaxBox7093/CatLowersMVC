@@ -32,5 +32,66 @@ namespace CatLowersMVC.SQL
                 }
             }
         }
+        public List<Article> GetAllArticles()
+        {
+            var articles = new List<Article>();
+
+            using (var db = new ConnectionDB())
+            {
+                var connection = db.OpenConnection();
+
+                string query = "SELECT id, title, text, tags, idCategory FROM [dbo].[articles]";
+
+                using (var command = new SqlCommand(query, connection))
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var article = new Article
+                        {
+                            Title = reader.GetString(1),
+                            Text = reader.GetString(2),
+                            Tags = reader.GetString(3),
+                            IdCategory = reader.GetInt32(4)
+                        };
+                        articles.Add(article);
+                    }
+                }
+            }
+
+            return articles;
+        }
+        public Article GetArticleById(int id)
+        {
+            Article article = null;
+
+            using (var db = new ConnectionDB())
+            {
+                var connection = db.OpenConnection();
+
+                string query = "SELECT id, title, text, tags, idCategory FROM [dbo].[articles] WHERE id = @id";
+
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            article = new Article
+                            {
+                                Title = reader.GetString(1),
+                                Text = reader.GetString(2),
+                                Tags = reader.GetString(3),
+                                IdCategory = reader.GetInt32(4)
+                            };
+                        }
+                    }
+                }
+            }
+
+            return article;
+        }
     }
 }

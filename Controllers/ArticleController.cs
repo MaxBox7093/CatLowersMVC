@@ -18,5 +18,30 @@ namespace CatLowersMVC.Controllers
 
             return Ok();
         }
+
+        [HttpPost]
+        [Route("all")]
+        public IActionResult GetAllArticles()
+        {
+            var sqlArticle = new SQLArticle();
+            var articles = sqlArticle.GetAllArticles();  
+
+            return Ok(articles);  
+        }
+
+        [HttpPost]
+        [Route("{id}")]
+        public IActionResult GetArticleById(int id)
+        {
+            var sqlArticle = new SQLArticle();
+            var article = sqlArticle.GetArticleById(id);  
+
+            if (article == null)
+            {
+                return NotFound($"Статья с ID {id} не найдена");
+            }
+
+            return Ok(article);  
+        }
     }
 }
