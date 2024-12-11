@@ -43,10 +43,14 @@ document.getElementById("login-form").addEventListener("submit", async function 
         const data = await response.json();
         console.log("Данные от сервера:", data);
 
-        userId = data.UserId; // Сохраняем ID пользователя глобально
-        localStorage.setItem("userId", data.UserId);
+        // Прямое присвоение, если сервер возвращает число
+        userId = data;
+        localStorage.setItem("userId", userId); // Сохраняем глобально
+
         resultElement.textContent = `Успешный вход! Перенаправление...`;
         resultElement.style.color = "green";
+
+        console.log("Глобальный userId:", userId);
 
         // Переход на главную страницу через 2 секунды
         setTimeout(() => {

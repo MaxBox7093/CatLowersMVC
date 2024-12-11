@@ -11,7 +11,7 @@ namespace CatLowersMVC.Controllers
     {
         [HttpPost]
         [Route("create")]
-        public IActionResult CreateQuestion(Question question)
+        public IActionResult CreateQuestion([FromForm] Question question, IFormFile? img)
         {
             if (question == null)
             {
@@ -20,8 +20,23 @@ namespace CatLowersMVC.Controllers
 
             try
             {
+                // Если файл не пустой, конвертируем его в байты
+                if (img != null && img.Length > 0)
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        img.CopyTo(memoryStream);
+                        question.Img = memoryStream.ToArray();
+                    }
+                }
+                else
+                {
+                    question.Img = null; // Если файла нет, записываем null
+                }
+
                 var sqlQuestion = new SQLQuestion();
                 int insertedId = sqlQuestion.AddQuestion(question);
+
                 return Ok(new { Id = insertedId });
             }
             catch (Exception ex)
@@ -29,6 +44,8 @@ namespace CatLowersMVC.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
+
 
         [HttpGet]
         [Route("getAll")]

@@ -55,11 +55,7 @@ namespace CatLowersAPI.Controllers
 
             if (userId.HasValue)
             {
-                return Ok(new
-                {
-                    Message = "Login successful",
-                    UserId = userId.Value
-                });
+                return Ok(userId);
             }
 
             return Unauthorized("Invalid login or password.");
