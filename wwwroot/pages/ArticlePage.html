@@ -34,6 +34,8 @@
             <div class="card-body">
                 <h1 id="article-title" class="display-4 text-center text-primary">Заголовок статьи</h1>
                 <p id="article-date" class="text-muted text-center">Дата публикации: </p>
+                <p id="article-category" class="text-muted">Категория: <span></span></p>
+                <div id="article-tags" class="tags"></div>
                 <hr>
                 <div id="article-content" class="article-content mt-4">
                     <div class="alert alert-info">Загрузка статьи...</div>
@@ -51,10 +53,10 @@
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
-        const articleId = urlParams.get('id'); 
+        const articleId = urlParams.get('id');
 
         if (articleId) {
-            fetch('http://localhost:5002/article/' + articleId)  
+            fetch('http://localhost:5002/article/' + articleId)
                 .then(response => response.json())
                 .then(data => {
                     if (data) {
@@ -62,6 +64,18 @@
                         document.getElementById('article-date').textContent = `Дата публикации: ${data.date}`;
                         document.getElementById('article-content').innerHTML = data.text;
                         document.getElementById('author-name').textContent = data.author || "Неизвестен";
+                        document.querySelector('#article-category span').textContent = data.category || "Не указана";
+
+                        const tagsContainer = document.getElementById('article-tags');
+                        const tagsArray = data.tags ? data.tags.split(',').map(tag => tag.trim()) : [];
+
+                        tagsArray.forEach(tag => {
+                            const span = document.createElement('span');
+                            span.classList.add('tag');
+                            span.textContent = tag;
+                            tagsContainer.appendChild(span);
+                        });
+
                     } else {
                         document.getElementById('article-content').innerHTML = "<p>Статья не найдена.</p>";
                     }

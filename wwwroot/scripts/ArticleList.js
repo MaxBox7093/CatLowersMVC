@@ -1,55 +1,85 @@
 const url = 'http://localhost:5002/article'; 
 
-function getArticleList() {
-    fetch(`${url}/all`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({})
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Ошибка в ответе от сервера');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Полученные статьи:', data);
+let categoriesCache = []; 
+function getCategoryNameById(categoryId) {
+    const category = categoriesCache.find(cat => cat.id === categoryId);
+    return category ? category.category : 'Категория не найдена';
+}
 
-            const divContainer = document.getElementsByClassName('article-list');
+async function loadCategories() {
+    try {
+        const response = await fetch('http://localhost:5002/Category/all');
+        const categories = await response.json();
+        categoriesCache = categories;  
+    } catch (error) {
+        console.error('Ошибка при загрузке категорий:', error);
+    }
+}
 
-            data.forEach(article => {
-
-                const link = document.createElement('a');
-                link.href = `articlepage.html?id=${article.id}`;
-
-                const div = document.createElement('div');
-                div.classList.add('article-item');
-
-                const title = document.createElement('h2');
-                title.classList.add('article-title');
-                title.textContent = article.title;
-
-                const topic = document.createElement('p');
-                topic.classList.add('article-topic');
-                topic.textContent = `Тема: ${article.topic}`;
-
-                const tags = document.createElement('p');
-                tags.classList.add('article-tags');
-                tags.textContent = `Теги: ${article.tags}`;
-
-                link.appendChild(div);
-                div.appendChild(title);
-                div.appendChild(topic);
-                div.appendChild(tags);
-
-                divContainer[0].appendChild(link);
-            });
-        })
-        .catch(error => {
-            console.error('Ошибка при запросе:', error);
+async function getArticleList() {
+    try {
+        const response = await fetch(`${url}/all`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({})
         });
+
+        if (!response.ok) {
+            throw new Error('Ошибка в ответе от сервера');
+        }
+
+        const data = await response.json();
+        console.log('Полученные статьи:', data);
+
+        const divContainer = document.getElementsByClassName('article-list');
+
+        data.forEach(article => {
+            const link = document.createElement('a');
+            link.href = `articlepage.html?id=${article.id}`;
+
+            const div = document.createElement('div');
+            div.classList.add('article-item');
+
+            const title = document.createElement('h2');
+            title.classList.add('article-title');
+            title.textContent = article.title;
+
+            const categoryName = getCategoryNameById(article.idCategory); 
+
+            const category = document.createElement('p');
+            category.classList.add('article-category');
+            category.textContent = `Категория: ${categoryName}`;
+
+            const tagsContainer = document.createElement('div');
+            tagsContainer.classList.add('tags');
+            tagsContainer.id = 'articleTags';
+
+            const tagsArray = article.tags.split(',').map(tag => tag.trim()).filter(tag => tag !== '');
+
+            tagsArray.forEach(tag => {
+                const span = document.createElement('span');
+                span.classList.add('tag');
+                span.textContent = tag;
+                tagsContainer.appendChild(span);
+            });
+
+            link.appendChild(div);
+            div.appendChild(title);
+            div.appendChild(category);  
+            div.appendChild(tagsContainer);
+
+            divContainer[0].appendChild(link);
+        });
+    } catch (error) {
+        console.error('Ошибка при запросе:', error);
+    }
+}
+
+async function loadContent() {
+    await loadCategories();
+    await getArticleList();
 }
 
 function getArticle(id) {
@@ -83,7 +113,7 @@ function getArticle(id) {
 
                 const topic = document.createElement('p');
                 topic.classList.add('article-topic');
-                topic.textContent = `Тема: ${article.topic}`;
+                topic.textContent = `Категория: ${article.topic}`;
 
                 const tags = document.createElement('p');
                 tags.classList.add('article-tags');
@@ -93,6 +123,13 @@ function getArticle(id) {
                 div.appendChild(topic);
                 div.appendChild(tags);
 
+                article.tags.forEach(tag => {
+                    const span = document.createElement('span');
+                    span.className = `badge bg-primary`;
+                    span.textContent = tag.name;
+                    tagsContainer.appendChild(span);
+                });
+
                 divContainer[0].appendChild(div);
             });
         })
@@ -101,4 +138,4 @@ function getArticle(id) {
         });
 }
 
-getArticleList();
+loadContent();

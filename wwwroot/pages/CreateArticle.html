@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../styles/Canvas.css">
     <link rel="stylesheet" href="../styles/Help.css">
     <link rel="stylesheet" href="../styles/CreateArticle.css">
+    <script src="../scripts/CreateArticle.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>catlowers.ru</title>
@@ -35,13 +36,8 @@
             <input type="text" name="title" placeholder="Введите заголовок статьи" required>
       
             <!-- Категория статьи -->
-            <select name="category" required>
+            <select name="category" id="categorySelect">
               <option value="" disabled selected>Выберите категорию</option>
-              <option value="Интересные факты">Интересные факты</option>
-              <option value="Уход">Уход</option>
-              <option value="Здоровье">Здоровье</option>
-              <option value="Выставки кошек">Выставки кошек</option>
-              <option value="Другое">Другое</option>
             </select>
       
             <!-- Поле для текста статьи -->

@@ -1,9 +1,11 @@
 document.getElementById('previewButton').addEventListener('click', function () {
     // Получаем значения из формы
     const title = document.querySelector('input[name="title"]').value;
-    const category = document.querySelector('select[name="category"]').value;
+    const category = document.querySelector('select[name="category"]');
     const content = document.querySelector('textarea[name="content"]').value;
     const tags = document.querySelector('input[name="tags"]').value;
+    const categoryId = document.getElementById('categorySelect').value;
+
   
     // Проверяем, что все обязательные поля заполнены
     if (!title || !category || !content) {
@@ -18,13 +20,25 @@ document.getElementById('previewButton').addEventListener('click', function () {
     fetch('../pages/PreviewPage.html')
       .then(response => response.text())
       .then(html => {
-        previewWindow.document.write(html);
+          previewWindow.document.write(html);
+
+          previewWindow.addEventListener('load', () => {
+              previewWindow.postMessage({ categoryId: categoryId }, '*');
+          });
   
         // Заполняем данные на странице
         previewWindow.document.getElementById('articleTitle').innerText = title;
-        previewWindow.document.getElementById('articleCategory').innerText = `Категория: ${category}`;
+        previewWindow.document.getElementById('articleCategory').innerText = `Категория: ${category.options[category.selectedIndex].text}`;
         previewWindow.document.getElementById('articleContent').innerText = content;
-        previewWindow.document.getElementById('articleTags').innerHTML = tags ? `Теги: ${tags}` : '';
+        let tagsArray = tags.split(",").map(tag => tag.trim()); 
+        let container = previewWindow.document.getElementById('articleTags'); 
+        tagsArray.forEach(tag => {
+            let span = document.createElement('span'); 
+            span.classList.add('tag');
+            span.textContent = tag; 
+
+            container.appendChild(span); 
+        });
         previewWindow.document.close();
       })
       .catch(error => {

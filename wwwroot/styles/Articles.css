@@ -47,6 +47,17 @@
     color: #666;
 }
 
-.article-tags {
-    margin-top: 5px;
+.tags {
+    font-size: 1.1rem;
+    color: #5d6a72;
+}
+
+.tag {
+    background-color: #7ec8a9;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 0.95rem;
 }
