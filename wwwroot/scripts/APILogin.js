@@ -45,7 +45,7 @@ document.getElementById("login-form").addEventListener("submit", async function 
 
         // Прямое присвоение, если сервер возвращает число
         userId = data;
-        localStorage.setItem("userId", userId); // Сохраняем глобально
+        sessionStorage.setItem("userId", userId); // Сохраняем глобально
 
         resultElement.textContent = `Успешный вход! Перенаправление...`;
         resultElement.style.color = "green";
