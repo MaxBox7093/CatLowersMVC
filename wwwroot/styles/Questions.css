@@ -13,6 +13,18 @@
         margin-bottom: 20px;
     }
 
+.filter-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    justify-content: space-between;
+}
+
+    .filter-bar input,
+    .filter-bar select {
+        flex: 1;
+    }
+
 .question-list {
     list-style: none;
     padding: 0;

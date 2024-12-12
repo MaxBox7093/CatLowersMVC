@@ -37,7 +37,11 @@ namespace CatLowersMVC.SQL
             using (var db = new ConnectionDB())
             {
                 var connection = db.OpenConnection();
-                var command = new SqlCommand("SELECT id, idUser, idTopic, title, text, img FROM questions", connection);
+                var command = new SqlCommand(
+                    @"SELECT q.id, q.idUser, q.idTopic, t.topic AS TopicName, q.title, q.text, q.img 
+              FROM questions q
+              JOIN topics t ON q.idTopic = t.Id",
+                    connection);
 
                 using (var reader = command.ExecuteReader())
                 {
@@ -48,9 +52,10 @@ namespace CatLowersMVC.SQL
                             Id = reader.GetInt32(0),
                             IdUser = reader.IsDBNull(1) ? null : reader.GetInt32(1),
                             IdTopic = reader.GetInt32(2),
-                            Title = reader.IsDBNull(3) ? null : reader.GetString(3),
-                            Text = reader.IsDBNull(4) ? null : reader.GetString(4),
-                            Img = reader.IsDBNull(5) ? null : (byte[])reader["img"]
+                            TopicName = reader.GetString(3), // Чтение названия темы
+                            Title = reader.IsDBNull(4) ? null : reader.GetString(4),
+                            Text = reader.IsDBNull(5) ? null : reader.GetString(5),
+                            Img = reader.IsDBNull(6) ? null : (byte[])reader["img"]
                         };
 
                         questions.Add(question);
@@ -60,6 +65,7 @@ namespace CatLowersMVC.SQL
 
             return questions;
         }
+
 
         // Новый метод для получения вопроса по ID
         public Question GetQuestionById(int id)
@@ -99,23 +105,24 @@ namespace CatLowersMVC.SQL
             using (var db = new ConnectionDB())
             {
                 var connection = db.OpenConnection();
-                var query = "SELECT id, idUser, idTopic, title, text, img FROM questions WHERE 1=1";
+                var query = @"
+            SELECT q.id, q.idUser, q.idTopic, q.title, q.text, q.img, t.topic AS topicName
+            FROM questions q
+            LEFT JOIN topics t ON q.idTopic = t.Id
+            WHERE 1=1";
 
-                // Условие для поиска по Title
                 if (!string.IsNullOrEmpty(keyword))
                 {
-                    query += " AND title LIKE @Keyword";
+                    query += " AND q.title LIKE @Keyword";
                 }
 
-                // Условие для фильтрации по idTopic
                 if (idTopic.HasValue)
                 {
-                    query += " AND idTopic = @IdTopic";
+                    query += " AND q.idTopic = @IdTopic";
                 }
 
                 var command = new SqlCommand(query, connection);
 
-                // Параметры
                 if (!string.IsNullOrEmpty(keyword))
                 {
                     command.Parameters.AddWithValue("@Keyword", $"%{keyword}%");
@@ -137,7 +144,8 @@ namespace CatLowersMVC.SQL
                             IdTopic = reader.GetInt32(2),
                             Title = reader.IsDBNull(3) ? null : reader.GetString(3),
                             Text = reader.IsDBNull(4) ? null : reader.GetString(4),
-                            Img = reader.IsDBNull(5) ? null : (byte[])reader["img"]
+                            Img = reader.IsDBNull(5) ? null : (byte[])reader["img"],
+                            TopicName = reader.IsDBNull(6) ? null : reader.GetString(6) // Заполнение TopicName
                         };
 
                         questions.Add(question);
