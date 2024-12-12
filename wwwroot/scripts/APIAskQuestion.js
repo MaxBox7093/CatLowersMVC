@@ -1,20 +1,11 @@
-﻿window.addEventListener('DOMContentLoaded', () => {
-    // Проверка при загрузке страницы
-    const userId = localStorage.getItem('userId');
-    if (!userId) {
-        alert('Пожалуйста, войдите в систему, чтобы использовать эту функцию.');
-        window.location.href = '../pages/Login.html'; // Перенаправление на страницу входа
-    }
-});
-
-// Обработка отправки формы
+﻿// Обработка отправки формы
 document.getElementById('question-form').addEventListener('submit', async function (event) {
     event.preventDefault();
 
     const formData = new FormData(this);
 
     // Проверка на авторизацию перед отправкой формы
-    const userId = localStorage.getItem('userId');
+    const userId = sessionStorage.getItem('userId');
     if (!userId) {
         alert('Вы не авторизованы! Пожалуйста, войдите в систему.');
         window.location.href = '../pages/Login.html'; // Перенаправление на страницу входа

@@ -12,81 +12,97 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>catlowers.ru - Статья</title>
+    <script src="../../scripts/Header.js"></script>
 </head>
 <body>
-    <nav class="top-menu">
-        <div class="logo"><img src="../content/images/logo2.png"></div>
-        <ul class="main-menu">
-            <li><a href="../index.html">Главная</a></li>
-            <li><a href="InterestingInformation.html">Интересные сведения</a></li>
-            <li><a href="CreateArticle.html">Создать статью</a></li>
-            <li><a href="Question.html">Вопросы</a></li>
-            <li><a href="AskQuestion.html">Задать вопрос</a></li>
-            <li><a href="Help.html">Помощь</a></li>
-        </ul>
-        <div class="sign-in">
-            <a href="../pages/Registration.html"><img class="registration" src="../content/images/registration.png" alt="registration"></a>
-            <a href="../pages/Login.html"><img class="login" src="../content/images/login.png" alt="login"></a>
-        </div>
-    </nav>
-    <main class="articles">
-        <div class="card shadow-lg">
-            <div class="card-body">
-                <h1 id="article-title" class="display-4 text-center text-primary">Заголовок статьи</h1>
-                <p id="article-date" class="text-muted text-center">Дата публикации: </p>
-                <p id="article-category" class="text-muted">Категория: <span></span></p>
-                <div id="article-tags" class="tags"></div>
-                <hr>
-                <div id="article-content" class="article-content mt-4">
-                    <div class="alert alert-info">Загрузка статьи...</div>
-                </div>
-                <hr>
-                <div id="article-author" class="text-right text-muted">
-                    <p>Автор статьи: <span id="author-name">Загрузка...</span></p>
+    <div id="header-container"> 
+    </div>
+        <main class="articles">
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <h1 id="article-title" class="display-4 text-center text-primary">Заголовок статьи</h1>
+                    <p id="article-date" class="text-muted text-center">Дата публикации: </p>
+                    <p id="article-category" class="text-muted">Категория: <span></span></p>
+                    <div id="article-tags" class="tags"></div>
+                    <hr>
+                    <div id="article-content" class="article-content mt-4">
+                        <div class="alert alert-info">Загрузка статьи...</div>
+                    </div>
+                    <hr>
+                    <div id="article-author" class="text-right text-muted">
+                        <p>Автор статьи: <span id="author-name">Загрузка...</span></p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </main>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        </main>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const articleId = urlParams.get('id');
+        <script>
+            const urlParams = new URLSearchParams(window.location.search);
+            const articleId = urlParams.get('id');
 
-        if (articleId) {
-            fetch('http://localhost:5002/article/' + articleId)
-                .then(response => response.json())
-                .then(data => {
-                    if (data) {
-                        document.getElementById('article-title').textContent = data.title;
-                        document.getElementById('article-date').textContent = `Дата публикации: ${data.date}`;
-                        document.getElementById('article-content').innerHTML = data.text;
-                        document.getElementById('author-name').textContent = data.author || "Неизвестен";
-                        document.querySelector('#article-category span').textContent = data.category || "Не указана";
+            async function loadArticle() {
+                if (!articleId) {
+                    document.getElementById('article-content').innerHTML = "<p>Не указан идентификатор статьи.</p>";
+                    return;
+                }
 
-                        const tagsContainer = document.getElementById('article-tags');
-                        const tagsArray = data.tags ? data.tags.split(',').map(tag => tag.trim()) : [];
-
-                        tagsArray.forEach(tag => {
-                            const span = document.createElement('span');
-                            span.classList.add('tag');
-                            span.textContent = tag;
-                            tagsContainer.appendChild(span);
-                        });
-
-                    } else {
-                        document.getElementById('article-content').innerHTML = "<p>Статья не найдена.</p>";
+                try {
+                    const response = await fetch('http://localhost:5002/article/' + articleId);
+                    if (!response.ok) {
+                        throw new Error('Ошибка при загрузке статьи');
                     }
-                })
-                .catch(error => {
-                    console.error('Ошибка при получении статьи:', error);
+                    const data = await response.json();
+
+                    if (!data) {
+                        document.getElementById('article-content').innerHTML = "<p>Статья не найдена.</p>";
+                        return;
+                    }
+
+                    document.getElementById('article-title').textContent = data.title;
+                    document.getElementById('article-date').textContent = `Дата публикации: ${data.date}`;
+                    document.getElementById('article-content').innerHTML = data.text;
+                    document.getElementById('author-name').textContent = data.author || "Неизвестен";
+
+                    const categoryName = await loadCategoryName(data.idCategory);
+                    document.querySelector('#article-category span').textContent = categoryName || "Не указана";
+
+                    const tagsContainer = document.getElementById('article-tags');
+                    const tagsArray = data.tags ? data.tags.split(',').map(tag => tag.trim()) : [];
+
+                    tagsArray.forEach(tag => {
+                        const span = document.createElement('span');
+                        span.classList.add('tag');
+                        span.textContent = tag;
+                        tagsContainer.appendChild(span);
+                    });
+                } catch (error) {
+                    console.error('Ошибка при загрузке статьи:', error);
                     document.getElementById('article-content').innerHTML = "<p>Ошибка при загрузке статьи.</p>";
-                });
-        } else {
-            document.getElementById('article-content').innerHTML = "<p>Не указан идентификатор статьи.</p>";
-        }
-    </script>
+                }
+            }
+
+            async function loadCategoryName(categoryId) {
+                if (!categoryId) {
+                    return "Не указана";
+                }
+
+                try {
+                    const response = await fetch('http://localhost:5002/Category/' + categoryId);
+                    if (!response.ok) {
+                        throw new Error('Ошибка при загрузке категории');
+                    }
+                    const categoryData = await response.json();
+                    return categoryData.category || "Не указана";
+                } catch (error) {
+                    console.error('Ошибка при загрузке категории:', error);
+                    return "Ошибка загрузки категории";
+                }
+            }
+
+            loadArticle();
+        </script>
 </body>
 </html>
