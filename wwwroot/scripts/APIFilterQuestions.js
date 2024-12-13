@@ -15,14 +15,11 @@
             console.log("Отправляемый URL:", url); // Лог URL запроса
 
             const response = await fetch(url);
-            console.log("HTTP статус ответа:", response.status); // Лог статуса ответа
-
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
             const questions = await response.json();
-            console.log("Полученные данные:", questions); // Лог данных, полученных с сервера
 
             // Очистка списка перед добавлением новых элементов
             questionList.innerHTML = "";
@@ -38,26 +35,30 @@
                 questionItem.className = "question-item";
 
                 questionItem.innerHTML = `
-                    <h2 class="question-title">${question.title || "Без названия"}</h2>
-                    <p class="question-topic">Тема: ${question.topicName || "Не указана"}</p>
-                    <p class="question-description">${(question.text || "Нет описания").slice(0, 100)}...</p>
+                    <a href="./QuestionPage.html?id=${question.id}" class="question-link">
+                        <h2 class="question-title">${question.title || "Без названия"}</h2>
+                        <p class="question-topic">Тема: ${question.topicName || "Не указана"}</p>
+                        <p class="question-description">${(question.text || "Нет описания").slice(0, 100)}...</p>
+                    </a>
                 `;
+
+                // Убедитесь, что событие клика не блокирует переход
+                questionItem.querySelector("a").addEventListener("click", (event) => {
+                    console.log(`Клик по вопросу с ID: ${question.id}`);
+                });
 
                 questionList.appendChild(questionItem);
             });
-
         } catch (error) {
-            console.error("Ошибка загрузки вопросов:", error); // Лог ошибки
+            console.error("Ошибка загрузки вопросов:", error);
             questionList.innerHTML = `<li class="error-message">Не удалось загрузить вопросы.</li>`;
         }
     }
 
-    // Добавляем обработчик на кнопку "Найти"
+    // Обработчик на кнопку "Найти"
     searchButton.addEventListener("click", () => {
         const keyword = searchKeyword.value.trim();
         const topicId = filterTopic.value;
-        console.log("Ключевое слово:", keyword); // Лог введенного ключевого слова
-        console.log("ID темы:", topicId); // Лог выбранной темы
         loadQuestions(keyword, topicId);
     });
 

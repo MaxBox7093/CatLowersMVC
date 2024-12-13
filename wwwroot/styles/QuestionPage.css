@@ -1,0 +1,110 @@
+﻿/* Основной контейнер для статей */
+.articles {
+    width: 90%;
+    max-width: 800px;
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px 30px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+    margin: 20px auto;
+}
+
+    /* Заголовок статьи */
+    .articles h1 {
+        font-size: 2rem;
+        color: #333;
+        text-align: center;
+        margin-bottom: 15px;
+        font-weight: bold;
+    }
+
+/* Список статей */
+.article-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.article-item {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+}
+
+    .article-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Полоска для выделения темы */
+    .article-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 5px;
+        height: 100%;
+        background: linear-gradient(180deg, #9638d0, #7ec8a9);
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
+
+/* Заголовок каждой статьи */
+.article-title {
+    font-size: 1.5rem;
+    color: #444;
+    margin-bottom: 10px;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+    .article-title:hover {
+        color: #9638d0;
+    }
+
+/* Тема статьи */
+.article-topic {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #9638d0;
+    margin-bottom: 10px;
+}
+
+/* Теги статьи */
+.tags {
+    font-size: 0.95rem;
+    color: #5d6a72;
+}
+
+.tag {
+    background-color: #7ec8a9;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 0.85rem;
+}
+
+/* Адаптивный дизайн */
+@media (max-width: 768px) {
+    .articles {
+        padding: 15px;
+    }
+
+    .article-title {
+        font-size: 1.3rem;
+    }
+
+    .article-item {
+        padding: 10px;
+    }
+}

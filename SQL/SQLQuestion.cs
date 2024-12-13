@@ -67,7 +67,6 @@ namespace CatLowersMVC.SQL
         }
 
 
-        // Новый метод для получения вопроса по ID
         public Question GetQuestionById(int id)
         {
             Question question = null;
@@ -75,7 +74,11 @@ namespace CatLowersMVC.SQL
             using (var db = new ConnectionDB())
             {
                 var connection = db.OpenConnection();
-                var command = new SqlCommand("SELECT id, idUser, idTopic, title, text, img FROM questions WHERE id = @Id", connection);
+                var command = new SqlCommand(@"
+            SELECT q.id, q.idUser, q.idTopic, t.topic AS TopicName, q.title, q.text, q.img
+            FROM questions q
+            LEFT JOIN topics t ON q.idTopic = t.Id
+            WHERE q.id = @Id", connection);
                 command.Parameters.AddWithValue("@Id", id);
 
                 using (var reader = command.ExecuteReader())
@@ -86,10 +89,11 @@ namespace CatLowersMVC.SQL
                         {
                             Id = reader.GetInt32(0),
                             IdUser = reader.IsDBNull(1) ? null : reader.GetInt32(1),
-                            IdTopic = reader.GetInt32(2),
-                            Title = reader.IsDBNull(3) ? null : reader.GetString(3),
-                            Text = reader.IsDBNull(4) ? null : reader.GetString(4),
-                            Img = reader.IsDBNull(5) ? null : (byte[])reader["img"]
+                            IdTopic = reader.IsDBNull(2) ? null : reader.GetInt32(2),
+                            TopicName = reader.IsDBNull(3) ? null : reader.GetString(3),
+                            Title = reader.IsDBNull(4) ? null : reader.GetString(4),
+                            Text = reader.IsDBNull(5) ? null : reader.GetString(5),
+                            Img = reader.IsDBNull(6) ? null : (byte[])reader["img"]
                         };
                     }
                 }
@@ -97,6 +101,7 @@ namespace CatLowersMVC.SQL
 
             return question;
         }
+
 
         public List<Question> SearchQuestions(string? keyword, int? idTopic)
         {
