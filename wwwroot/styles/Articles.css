@@ -61,3 +61,14 @@
     font-weight: bold;
     font-size: 0.95rem;
 }
+.filter-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    justify-content: space-between;
+}
+
+    .filter-bar input,
+    .filter-bar select {
+        flex: 1;
+    }
