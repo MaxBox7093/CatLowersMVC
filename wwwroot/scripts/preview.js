@@ -6,44 +6,48 @@ document.getElementById('previewButton').addEventListener('click', function () {
     const tags = document.querySelector('input[name="tags"]').value;
     const categoryId = document.getElementById('categorySelect').value;
 
-  
     // Проверяем, что все обязательные поля заполнены
     if (!title || !category || !content) {
-      alert('Пожалуйста, заполните все обязательные поля!');
-      return;
+        alert('Пожалуйста, заполните все обязательные поля!');
+        return;
     }
-  
+
     // Открываем новое окно для предпросмотра
-    const previewWindow = window.open('', '_blank');
-    
+    const previewWindow = window.open('http://localhost:5002/', '_blank');
+
     // Загружаем HTML-шаблон из внешнего файла
-    fetch('../pages/PreviewPage.html')
-      .then(response => response.text())
-      .then(html => {
-          previewWindow.document.write(html);
+    fetch('/pages/PreviewPage.html')
+        .then(response => response.text())
+        .then(html => {
+            previewWindow.document.open();
+            previewWindow.document.write(html);
+            previewWindow.document.close();
 
-          previewWindow.addEventListener('load', () => {
-              previewWindow.postMessage({ categoryId: categoryId }, '*');
-          });
-  
-        // Заполняем данные на странице
-        previewWindow.document.getElementById('articleTitle').innerText = title;
-        previewWindow.document.getElementById('articleCategory').innerText = `Категория: ${category.options[category.selectedIndex].text}`;
-        previewWindow.document.getElementById('articleContent').innerText = content;
-        let tagsArray = tags.split(",").map(tag => tag.trim()); 
-        let container = previewWindow.document.getElementById('articleTags'); 
-        tagsArray.forEach(tag => {
-            let span = document.createElement('span'); 
-            span.classList.add('tag');
-            span.textContent = tag; 
+            // Убедитесь, что DOM полностью загружен
+            previewWindow.addEventListener('load', () => {
+                // Заполняем данные на странице
+                previewWindow.document.getElementById('articleTitle').innerText = title;
+                previewWindow.document.getElementById('articleCategory').innerText = `Категория: ${category.options[category.selectedIndex].text}`;
+                previewWindow.document.getElementById('articleContent').innerText = content;
 
-            container.appendChild(span); 
+                // Обработка тегов
+                let tagsArray = tags.split(",").map(tag => tag.trim());
+                let container = previewWindow.document.getElementById('articleTags');
+                if (container) {
+                    tagsArray.forEach(tag => {
+                        let span = document.createElement('span');
+                        span.classList.add('tag');
+                        span.textContent = tag;
+                        container.appendChild(span);
+                    });
+                }
+            });
+
+            // Передаём данные в открытое окно
+            previewWindow.postMessage({ categoryId: categoryId }, '*');
+        })
+        .catch(error => {
+            alert('Ошибка загрузки HTML-шаблона. Проверьте файл.');
+            console.error('Ошибка загрузки HTML-шаблона:', error);
         });
-        previewWindow.document.close();
-      })
-      .catch(error => {
-        console.error('Ошибка загрузки HTML-шаблона:', error);
-        alert('Произошла ошибка при загрузке шаблона');
-      });
-  });
-  
+});
