@@ -80,6 +80,21 @@ async function getArticleList() {
 async function loadContent() {
     await loadCategories();
     await getArticleList();
+    await setCategoriesList();
+}
+
+async function setCategoriesList() {
+    if (categoriesCache == []) {
+        await loadCategories();
+    }
+
+    const categorySelect = document.getElementById('filter-topic');
+    categoriesCache.forEach(category => {
+        const option = document.createElement('option');
+        option.value = category.id;
+        option.textContent = category.category;
+        categorySelect.appendChild(option);
+    });
 }
 
 function getArticle(id) {
@@ -136,6 +151,32 @@ function getArticle(id) {
         .catch(error => {
             console.error('Ошибка при запросе:', error);
         });
+}
+
+function filterArticles() {
+    const searchInput = document.getElementById('search-keyword');
+    const filterTopic = document.getElementById('filter-topic');
+    const articles = Array.from(document.querySelectorAll('.article-item'));
+
+    const keyword = searchInput.value.toLowerCase();
+    const selectedValue = filterTopic.value;
+    const selectedText = filterTopic.options[filterTopic.selectedIndex]?.text.toLowerCase().trim() || '';
+
+    articles.forEach(article => {
+        const title = article.querySelector('.article-title').textContent.toLowerCase();
+        const topicText = article.querySelector('.article-category')?.textContent.toLowerCase() || '';
+
+        const topic = topicText.replace('категория: ', '').trim();
+
+        const matchesKeyword = title.includes(keyword);
+        const matchesTopic = selectedValue === '' || topic.includes(selectedText);
+
+        if (matchesKeyword && matchesTopic) {
+            article.style.display = '';
+        } else {
+            article.style.display = 'none';
+        }
+    });
 }
 
 loadContent();
