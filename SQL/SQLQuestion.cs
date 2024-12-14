@@ -160,5 +160,81 @@ namespace CatLowersMVC.SQL
 
             return questions;
         }
+
+        public void AddComment(QuestionComment comment)
+        {
+            using (var db = new ConnectionDB())
+            {
+                var connection = db.OpenConnection();
+
+                string query = @"
+                    INSERT INTO [dbo].[questionComments] 
+                    (QuestionId, UserId, CreateDate, Text) 
+                    VALUES (@QuestionId, @UserId, @CreateDate, @Text)";
+
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@QuestionId", comment.QuestionId);
+                    command.Parameters.AddWithValue("@UserId", comment.UserId);
+                    command.Parameters.AddWithValue("@CreateDate", comment.CreateDate);
+                    command.Parameters.AddWithValue("@Text", comment.Text);
+
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public List<QuestionComment> GetQuestionComments(int questionId)
+        {
+            var articles = new List<QuestionComment>();
+
+            using (var db = new ConnectionDB())
+            {
+                var connection = db.OpenConnection();
+
+                string query = "SELECT * FROM [dbo].[questionComments] where questionId = @QuestionId";
+
+
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@QuestionId", questionId);
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var article = new QuestionComment
+                            {
+                                Id = reader.GetInt32(0),
+                                UserId = reader.GetInt32(1),
+                                QuestionId = reader.GetInt32(2),
+                                CreateDate = reader.GetDateTime(3),
+                                Text = reader.GetString(4)
+                            };
+                            articles.Add(article);
+                        }
+                    }
+                }
+            }
+
+            return articles;
+        }
+
+        public void DeleteComment(int commentId)
+        {
+            using (var db = new ConnectionDB())
+            {
+                var connection = db.OpenConnection();
+
+                string query = @"
+                    DELETE FROM [dbo].[questionComments] 
+                    WHERE id = @id";
+
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@id", commentId);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

@@ -45,8 +45,6 @@ namespace CatLowersMVC.Controllers
             }
         }
 
-
-
         [HttpGet]
         [Route("getAll")]
         public IActionResult GetAllQuestions()
@@ -110,6 +108,43 @@ namespace CatLowersMVC.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpPost]
+        [Route("createComment")]
+        public IActionResult CreateComment(QuestionComment comment)
+        {
+            var sqlArticle = new SQLQuestion();
+            sqlArticle.AddComment(comment);
+
+            return Ok();
+        }
+
+        [HttpGet]
+        [Route("questionComments/{articleId}")]
+        public IActionResult GetComments(int articleId)
+        {
+            var sqlArticle = new SQLQuestion();
+            var comments = sqlArticle.GetQuestionComments(articleId);
+
+            return Ok(comments);
+        }
+
+        [HttpDelete]
+        [Route("deleteComment/{commentId}")]
+        public IActionResult DeleteComment(int commentId)
+        {
+            try
+            {
+                var sqlArticle = new SQLQuestion();
+                sqlArticle.DeleteComment(commentId);
+
+                return Ok(new { success = true, message = "Комментарий успешно удален." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { success = false, message = "Произошла ошибка на сервере.", error = ex.Message });
             }
         }
     }
