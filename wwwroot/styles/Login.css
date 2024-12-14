@@ -46,19 +46,21 @@
     max-width: 350px;
     box-sizing: border-box;
   }
-  
-  .login-content button {
-    width: 150%;
-    height: 150%;
+
+.login-content button {
+    width: 150%; 
+    max-width: 350px;
     padding: 10px;
     border: none;
     background-color: #9638d0;
-    color: white;
+    color: white; 
     border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
+    cursor: pointer; 
+    transition: background-color 0.3s ease; 
+    box-sizing: border-box; 
+}
   
   .login-content button:hover {
     background-color: #0056b3;
   }
+
