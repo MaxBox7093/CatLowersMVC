@@ -28,5 +28,29 @@ namespace CatLowersAPI.SQL
                 }
             }
         }
+
+        public string GetName(int accountId)
+        {
+            using (var db = new ConnectionDB())
+            {
+                var connection = db.OpenConnection();
+
+                var query = @"
+                    SELECT fullName 
+                    FROM [dbo].[users]
+                    JOIN [dbo].[accounts]
+                    ON [dbo].[users].[Id] = [dbo].[accounts].[idUser]
+                    WHERE [dbo].[accounts].[Id] = @id";
+
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@id", accountId);
+
+                    var result = command.ExecuteScalar();
+
+                    return result != null ? (string?)result : null;
+                }
+            }
+        }
     }
 }

@@ -7,13 +7,32 @@
     const commentsContainer = document.createElement("div");
     commentsContainer.id = "comments-container";
     mainContainer.appendChild(commentsContainer);
+    async function getUserName(userId) {
+        try {
+            const response = await fetch(`/user/getName/${userId}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (response.ok) {
+                return await response.text();
+            } else {
+                console.error("Не удалось загрузить имя пользователя.");
+                return `User ${userId}`;  
+            }
+        } catch (error) {
+            console.error("Ошибка при получении имени пользователя:", error);
+            return `User ${userId}`;
+        }
+    }
 
     async function loadComments() {
         try {
             const response = await fetch("/question/questionComments/" + articleId, {
                 method: "GET",
-                headers:
-                {
+                headers: {
                     "Content-Type": "application/json",
                 },
             });
@@ -21,8 +40,7 @@
             if (response.ok) {
                 const comments = await response.json();
                 displayComments(comments);
-            }
-            else {
+            } else {
                 commentsContainer.innerHTML = "<p>Не удалось загрузить комментарии.</p>";
             }
         } catch (error) {
@@ -31,26 +49,27 @@
         }
     }
 
-    function displayComments(comments) {
+    async function displayComments(comments) {
         commentsContainer.innerHTML = "";
 
         if (comments.length === 0) {
             commentsContainer.innerHTML = "<p>Комментариев пока нет.</p>";
-        }
-        else {
-            comments.forEach(comment => {
+        } else {
+            for (const comment of comments) {
                 const commentElement = document.createElement("div");
                 commentElement.classList.add("card", "mb-3");
 
                 const commentDate = new Date(comment.createDate).toLocaleString();
+                const userName = await getUserName(comment.userId); 
 
-                commentElement.innerHTML = `<div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h5 class="card-title mb-1"> Пользователь ${comment.userId}</h5>
-                        <span class="text-muted small">${commentDate}</span>
-                    </div>
-                    <p class="card-text">${comment.text}</p>
-                    ${currentUserId == comment.userId
+                commentElement.innerHTML = `
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-1">${userName}</h5>
+                            <span class="text-muted small">${commentDate}</span>
+                        </div>
+                        <p class="card-text">${comment.text}</p>
+                        ${currentUserId == comment.userId
                         ? '<button class="btn btn-sm btn-outline-danger delete-comment">Удалить</button>'
                         : ''
                     }
@@ -64,7 +83,7 @@
                         deleteComment(comment.id, commentElement);
                     });
                 }
-            });
+            }
         }
     }
 
@@ -76,8 +95,7 @@
 
             if (response.ok) {
                 commentElement.remove();
-            }
-            else {
+            } else {
                 alert("Не удалось удалить комментарий.");
             }
         } catch (error) {
@@ -119,8 +137,7 @@
                 try {
                     const response = await fetch("/question/createComment", {
                         method: "POST",
-                        headers:
-                        {
+                        headers: {
                             "Content-Type": "application/json",
                         },
                         body: JSON.stringify(newComment),
@@ -130,12 +147,10 @@
                         alert("Комментарий добавлен.");
                         textarea.value = "";
                         loadComments();
-                    }
-                    else {
+                    } else {
                         alert("Ошибка при добавлении комментария. Попробуйте снова.");
                     }
-                }
-                catch (error) {
+                } catch (error) {
                     console.error("Ошибка при отправке комментария:", error);
                     alert("Не удалось добавить комментарий. Проверьте соединение с сервером.");
                 }

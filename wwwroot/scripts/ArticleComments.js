@@ -1,12 +1,41 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
     const currentUserId = sessionStorage.getItem("userId");
-    const isUserAuthenticated = currentUserId !==  null; 
+    const isUserAuthenticated = currentUserId !== null;
     const articleId = new URLSearchParams(window.location.search).get('id');
     const mainContainer = document.querySelector("main.articles");
 
     const commentsContainer = document.createElement("div");
     commentsContainer.id = "comments-container";
     mainContainer.appendChild(commentsContainer);
+
+    const userCache = new Map();
+
+    async function getUserName(userId) {
+        if (userCache.has(userId)) {
+            return userCache.get(userId);
+        }
+
+        try {
+            const response = await fetch(`/user/getName/${userId}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (response.ok) {
+                const userName = await response.text();
+                userCache.set(userId, userName);
+                return userName;
+            } else {
+                console.error("Не удалось загрузить имя пользователя.");
+                return `User ${ userId }`; 
+            }
+        } catch (error) {
+            console.error("Ошибка при получении имени пользователя:", error);
+            return `User ${ userId }`;
+        }
+    }
 
     async function loadComments() {
         try {
@@ -29,22 +58,23 @@
         }
     }
 
-    function displayComments(comments) {
-        commentsContainer.innerHTML = ""; 
+    async function displayComments(comments) {
+        commentsContainer.innerHTML = "";
 
         if (comments.length === 0) {
             commentsContainer.innerHTML = "<p>Комментариев пока нет.</p>";
         } else {
-            comments.forEach(comment => {
+            for (const comment of comments) {
                 const commentElement = document.createElement("div");
                 commentElement.classList.add("card", "mb-3");
 
                 const commentDate = new Date(comment.createDate).toLocaleString();
+                const userName = await getUserName(comment.userId);
 
                 commentElement.innerHTML = `
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h5 class="card-title mb-1">Пользователь ${comment.userId}</h5>
+                        <h5 class="card-title mb-1">${userName}</h5>
                         <span class="text-muted small">${commentDate}</span>
                     </div>
                     <p class="card-text">${comment.text}</p>
@@ -53,7 +83,7 @@
                         : ''
                     }
                 </div>
-            `;
+                `;
 
                 commentsContainer.appendChild(commentElement);
 
@@ -63,7 +93,7 @@
                         deleteComment(comment.id, commentElement);
                     });
                 }
-            });
+            }
         }
     }
 
@@ -74,8 +104,9 @@
             });
 
             if (response.ok) {
-                commentElement.remove(); 
+                commentElement.remove();
             } else {
+
                 alert("Не удалось удалить комментарий.");
             }
         } catch (error) {
@@ -126,7 +157,7 @@
                     if (response.ok) {
                         alert("Комментарий добавлен.");
                         textarea.value = "";
-                        loadComments(); 
+                        loadComments();
                     } else {
                         alert("Ошибка при добавлении комментария. Попробуйте снова.");
                     }

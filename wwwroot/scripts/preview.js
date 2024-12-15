@@ -41,10 +41,11 @@ document.getElementById('previewButton').addEventListener('click', function () {
                         container.appendChild(span);
                     });
                 }
+                previewWindow.postMessage({ categoryId: categoryId }, '*');
+
             });
 
             // Передаём данные в открытое окно
-            previewWindow.postMessage({ categoryId: categoryId }, '*');
         })
         .catch(error => {
             alert('Ошибка загрузки HTML-шаблона. Проверьте файл.');

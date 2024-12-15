@@ -60,5 +60,15 @@ namespace CatLowersAPI.Controllers
 
             return Unauthorized("Invalid login or password.");
         }
+
+        [HttpGet]
+        [Route("getName/{accountId}")]
+        public IActionResult GetName(int accountId)
+        {
+            var sql = new SQLAuthorization();
+            var account = sql.GetName(accountId);
+
+            return Ok(account);
+        }
     }
 }
