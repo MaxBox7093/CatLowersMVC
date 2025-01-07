@@ -17,7 +17,6 @@ namespace CatLowersAPI.Controllers
                 return BadRequest("Registration data is required.");
             }
 
-            // Проверка валидности данных (например, обязательные поля)
             if (string.IsNullOrWhiteSpace(registration.FullName) ||
                 string.IsNullOrWhiteSpace(registration.Login) ||
                 string.IsNullOrWhiteSpace(registration.Password))

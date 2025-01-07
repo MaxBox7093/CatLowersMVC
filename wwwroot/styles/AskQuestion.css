@@ -1,3 +1,34 @@
+/* Контейнер для изображений */
+.cat-images-container {
+    display: flex;
+    flex-direction: column; /* Расположить элементы в колонку (вертикально) */
+    align-items: flex-start; /* Выравнивание по левому краю */
+    margin-left: 10px; /* Отступ от левого края */
+    gap: 10px; /* Расстояние между изображениями */
+}
+
+/* Изображения */
+.cat-image {
+    width: 450px !important; /* Принудительное применение ширины */
+    height: auto; /* Сохраняем пропорции */
+    object-fit: contain; /* Убедимся, что изображение масштабируется без обрезки */
+    max-width: 100%; /* Убедимся, что ширина не превышает размера контейнера */
+}
+
+.cat-left {
+    margin: 10px 500px 10px 10px;
+}
+
+/* Правый котик */
+.cat-right {
+    right: 10px; /* Отступ от правого края */
+}
+
+.cat-right90 {
+    right: 10px; /* Отступ от правого края */
+    width: 380px !important; /* Принудительное применение ширины */
+}
+
 /* Центрирование главного контейнера */
 .question-container {
   display: flex;
@@ -10,13 +41,15 @@
 
 /* Стиль блока контента */
 .question-content {
-  background-color: rgba(128, 128, 128, 0.9);
-  border: 2px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  width: 500px;
-  padding: 60px;
-  text-align: center;
+    padding: 10px 0px 0px 0px;
+    background-color: rgba(128, 128, 128, 0.9);
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 500px;
+    padding: 60px;
+    text-align: center;
+    margin: 20px 100px 0px 100px; /* Добавлены отступы от левого и правого краев */
 }
 
 .question-content h2 {

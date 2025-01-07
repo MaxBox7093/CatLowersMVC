@@ -1,5 +1,8 @@
 body {
-    background-color: #f0f0f0;
+    background-image: url('../content/Background/4.png');
+    background-repeat: repeat;
+    background-size: 20%;
+}
 }
 #login-link {
     cursor: pointer; 

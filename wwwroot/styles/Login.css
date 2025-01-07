@@ -1,5 +1,5 @@
 /* Общий стиль для страницы */
-  body {
+body {
     margin: 0;
     padding: 0;
     display: flex;
@@ -7,60 +7,91 @@
     align-items: center;
     height: 100vh;
     font-family: Arial, sans-serif;
-  }
-  
-  /* Контейнер для окна входа */
-  .login-container {
+}
+
+/* Контейнер для изображений */
+.cat-images-container {
+    display: flex;
+    flex-direction: column; /* Расположить элементы в колонку (вертикально) */
+    align-items: flex-start; /* Выравнивание по левому краю */
+    margin-left: 10px; /* Отступ от левого края */
+    gap: 10px; /* Расстояние между изображениями */
+}
+
+/* Изображения */
+.cat-image {
+    width: 450px !important; /* Принудительное применение ширины */
+    height: auto; /* Сохраняем пропорции */
+    object-fit: contain; /* Убедимся, что изображение масштабируется без обрезки */
+    max-width: 100%; /* Убедимся, что ширина не превышает размера контейнера */
+}
+
+.cat-left {
+    margin: 10px 500px 10px 10px;
+}
+
+/* Правый котик */
+.cat-right {
+    right: 10px; /* Отступ от правого края */
+}
+
+.cat-right90 {
+    right: 10px; /* Отступ от правого края */
+    width: 380px !important; /* Принудительное применение ширины */
+}
+
+/* Контейнер для окна входа */
+.login-container {
     background-color: rgba(128, 128, 128, 0.8); /* Серый полупрозрачный фон */
     border: 2px solid #ccc; /* Рамка */
     border-radius: 10px; /* Скругленные углы */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тень */
     width: 400px;
-    padding: 20px;
+    padding: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
-  /* Контент внутри окна входа */
-  .login-content {
-    text-align: center;
-  }
-  
-  .login-content h2 {
-    margin-bottom: 20px;
-  }
-  
-  .login-content form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: center;
-  }
-  
-  .login-content input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 150%;
-    max-width: 350px;
-    box-sizing: border-box;
-  }
-
-.login-content button {
-    width: 150%; 
-    max-width: 350px;
-    padding: 10px;
-    border: none;
-    background-color: #9638d0;
-    color: white; 
-    border-radius: 5px;
-    cursor: pointer; 
-    transition: background-color 0.3s ease; 
-    box-sizing: border-box; 
+    margin: 0 100px; /* Добавлены отступы от левого и правого краев */
 }
-  
-  .login-content button:hover {
-    background-color: #0056b3;
-  }
 
+/* Контент внутри окна входа */
+.login-content {
+    text-align: center;
+}
+
+    .login-content h2 {
+        margin-bottom: 20px;
+    }
+
+    .login-content form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .login-content input {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 150%;
+        max-width: 350px;
+        box-sizing: border-box;
+    }
+
+    .login-content button {
+        width: 150%;
+        max-width: 350px;
+        padding: 10px;
+        border: none;
+        background-color: #9638d0;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        box-sizing: border-box;
+    }
+
+        .login-content button:hover {
+            background-color: #0056b3;
+        }

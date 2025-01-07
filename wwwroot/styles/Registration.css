@@ -8,9 +8,40 @@ body {
     height: 100vh;
     font-family: Arial, sans-serif;
   }
+
+    /* Контейнер для изображений */
+    .cat-images-container {
+        display: flex;
+        flex-direction: column; /* Расположить элементы в колонку (вертикально) */
+        align-items: flex-start; /* Выравнивание по левому краю */
+        margin-left: 10px; /* Отступ от левого края */
+        gap: 10px; /* Расстояние между изображениями */
+    }
+
+    /* Изображения */
+    .cat-image {
+        width: 450px !important; /* Принудительное применение ширины */
+        height: auto; /* Сохраняем пропорции */
+        object-fit: contain; /* Убедимся, что изображение масштабируется без обрезки */
+        max-width: 100%; /* Убедимся, что ширина не превышает размера контейнера */
+    }
+
+    .cat-left {
+        margin: 10px 500px 10px 10px;
+    }
+
+    /* Правый котик */
+    .cat-right {
+        right: 10px; /* Отступ от правого края */
+    }
+
+    .cat-right90 {
+        right: 10px; /* Отступ от правого края */
+        width: 380px !important; /* Принудительное применение ширины */
+    }
   
   /* Контейнер для окна регистрации */
-  .register-container {
+.register-container {
     background-color: rgba(128, 128, 128, 0.8);
     border: 2px solid #ccc;
     border-radius: 10px;
@@ -20,7 +51,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-  }
+    margin: 0 100px; /* Добавлены отступы от левого и правого краев */
+}
   
   /* Контент внутри окна регистрации */
   .register-content {
